@@ -1,0 +1,58 @@
+import pygame
+import os
+from OpenGL.GL import *
+
+class sign:
+    def lose(self):
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
+        textureSurface = pygame.image.load((os.path.join('bouncingball_youlose.png')))
+        textureData = pygame.image.tostring(textureSurface, "RGBA", 1)
+        width = textureSurface.get_width()
+        height = textureSurface.get_height()
+        glEnable(GL_TEXTURE_2D)
+        glBindTexture(GL_TEXTURE_2D, glGenTextures(1))
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+    def draw_lose(self):
+        sign.lose(self)
+        glBegin(GL_QUADS)
+        glTexCoord2f(0, 0)
+        glVertex3f(-1, -1.5, 0)
+        glTexCoord2f(1, 0)
+        glVertex3f(4.5, -1.5, 0)
+        glTexCoord2f(1, 1)
+        glVertex3f(4.5, 0.5, 0)
+        glTexCoord2f(0, 1)
+        glVertex3f(-1, 0.5, 0)
+        glEnd()
+        glDeleteTextures(1)
+
+    def win(self):
+        glTexEnvi(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL)
+        textureSurface = pygame.image.load((os.path.join('bouncingball_congraz.png')))
+        textureData = pygame.image.tostring(textureSurface, "RGBA", 1)
+        width = textureSurface.get_width()
+        height = textureSurface.get_height()
+        glEnable(GL_TEXTURE_2D)
+        glBindTexture(GL_TEXTURE_2D, glGenTextures(1))
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, textureData)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR)
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR)
+    def draw_win(self):
+        sign.win(self)
+        glBegin(GL_QUADS)
+        glTexCoord2f(0, 0)
+        glVertex3f(-1, -1.5, 0)
+        glTexCoord2f(1, 0)
+        glVertex3f(4.5, -1.5, 0)
+        glTexCoord2f(1, 1)
+        glVertex3f(4.5, 0.5, 0)
+        glTexCoord2f(0, 1)
+        glVertex3f(-1, 0.5, 0)
+        glEnd()
+        glDeleteTextures(1)
